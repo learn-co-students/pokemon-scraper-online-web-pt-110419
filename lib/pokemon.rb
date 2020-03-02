@@ -19,4 +19,17 @@ class Pokemon
         db.execute(sql, name, type)[0]
 
     end
+
+    def self.find(id, db)
+        sql = <<-SQL
+        SELECT * 
+        FROM pokemon
+        WHERE id = ?
+        SQL
+        data = db.execute(sql, id)[0]
+
+        new_entry = self.new(id: data[0], name: data[1], type: data[2], db: db)
+        new_entry
+
+    end
 end
